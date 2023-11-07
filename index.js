@@ -122,13 +122,22 @@ const verifyToken = (req, res, next) => {
      
     });
 
-    // app.get('/itemsCart/:email', async (req, res) => {
-    //   const result = await itemCartCollection.find({
-    //     email: req.params.email
-    //   }).toArray();
-    //   console.log(result)
-    //   res.send(result)
-    // })
+
+    // search Implement a search system 
+    app.get('/SearchFood/:text', async (req, res) => {
+      const searchText = req.params.text;
+      console.log(searchText);
+
+      const result = await itemCollection.find({
+        $or: [
+          { food_name: { $regex: searchText, $options: 'i' } }
+        ]
+      }).toArray()
+
+      res.send(result)
+    })
+
+    
 
     // get single items
     app.get("/items/:id", async (req, res) => {
