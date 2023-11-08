@@ -112,6 +112,14 @@ const verifyToken = (req, res, next) => {
     })
 
 
+    app.get('/myAddedItems/:email', async (req, res) => {
+      const result = await itemCollection.find({
+        email: req.params.email
+      }).toArray();
+      res.send(result)
+    })
+
+
      
     // get cart items
     app.get("/itemsCart", logger, verifyToken, async (req, res) => {
