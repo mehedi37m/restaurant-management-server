@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser');
 
  app.use(cors({
   origin: [
-      'http://localhost:5173',
+      'https://restaurant-manag.web.app',
    
   ],
   credentials: true
