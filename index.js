@@ -94,13 +94,22 @@ const verifyToken = (req, res, next) => {
      app.get('/items', async (req, res) =>{
 
       try {
-        const result = await itemCollection.find().toArray();
+        const page = parseInt(req.query.page);
+        const size = parseInt(req.query.size);
+  
+        const result = await itemCollection.find().skip(page*size).limit(size).toArray();
         res.send(result);
       } catch (error) {
         res.send(error.message);
       }
         
      })
+
+    //  pagination 
+    app.get('/itemsCount', async (req, res) => {
+      const count = await itemCollection.estimatedDocumentCount();
+      res.send({ count });
+    })
 
 
      
